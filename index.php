@@ -1,16 +1,18 @@
 <link rel="stylesheet" type="text/css" href="background.css">
 <?php
-  require 'vendor/autoload.php';
+require("vendor/autoload.php");
+use GuzzleHttp\Client;
+// Skapa en HTTP-client
+$client = new Client();
+// Anropa URL: http://unicorns.idioti.se/
+$res = $client->request('GET', 'http://unicorns.idioti.se/',
+['headers' =>['Accept'=> 'application/json']]);
 
-  use Monolog\Logger;
-  use Monolog\Handler\StreamHandler;
-
-  $log = new Logger('Laboration 1');
-  $log->pushHandler(new StreamHandler('greetings.log', Logger::INFO));
-  $log->info("Emil är ful");
-
-  $name = $_GET['name'];
-  $log->info($name);
+//echo $res->getBody();
+$data = json_decode($res->getBody());
+//$myJson = json_encode($data);
+print_r($data);
+//echo $data[0]->name;
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,14 +26,19 @@
     <hr>
     <form class="" action="get.php" method="get">
       <div class="form-group">
-        <input type="text" name="search">
+        <input type="text" name="search" class="form-control">
       </div>
       <div class="form-group">
-        <input type="submit" name="searchBtn" class="btn btn-succsess" value="Visa Enhörning!">
+        <input type="submit" name="searchBtn" class="btn btn-success" value="Visa Enhörning!">
+        <input type="submit" name="searchBtn" class="btn btn-primary" value="Visa alla enhörningar!">
       </div>
     </form>
-
-      <input type="submit" name="searchBtn" class="btn" value="Visa alla enhörningar!">
-
+      <ul class="unicorn-list">
+        <?php
+          for($i = 0; $i <= sizeof($data)-2; $i++){
+            echo "<li>". $data[$i]->name . "</li>". "<hr>";
+          }
+        ?>
+      </ul>
   </body>
 </html>
