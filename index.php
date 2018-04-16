@@ -1,19 +1,14 @@
 <?php
 require("vendor/autoload.php");
 use GuzzleHttp\Client;
-// Skapa en HTTP-client
+require("log.php");
 $client = new Client();
-// Anropa URL: http://unicorns.idioti.se/
 $res = $client->request('GET', 'http://unicorns.idioti.se/',
 ['headers' =>['Accept'=> 'application/json']]);
-
-//echo $res->getBody();
 $data = json_decode($res->getBody());
-//$myJson = json_encode($data);
-//print_r($data);
-//echo $data[0]->name;
-?>
 
+$log->debug('Requested info about all unicorns');
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -41,8 +36,11 @@ $data = json_decode($res->getBody());
       <ul class="unicorn-list">
         <?php
           for($i = 0; $i <= sizeof($data)-5; $i++){
-            echo "<li><form action='specific.php'method='get'>" . $data[$i]->name .
-            "<button type = 'submit' name='search' class='btn-info' value='". $data[$i]->id ."'>Läs mer!</button></form><hr></li>";
+            echo "<li><form action='specific.php'method='get'>"
+            . $data[$i]->name .
+            "<button type = 'submit' name='search' class='btn-info'
+            value='". $data[$i]->id
+            ."'>Läs mer!</button></form><hr></li>";
           }
         ?>
       </ul>

@@ -1,12 +1,12 @@
 <?php
 require("vendor/autoload.php");
+require("log.php");
 use GuzzleHttp\Client;
 $client = new Client();
 $res = $client->request('GET', 'http://unicorns.idioti.se/' . $_GET["search"],
 ['headers' =>['Accept'=> 'application/json']]);
-
 $data = json_decode($res->getBody());
-//print_r($data);
+$log->debug('Requested info about'. $data->name);
 ?>
 
 <!DOCTYPE html>
