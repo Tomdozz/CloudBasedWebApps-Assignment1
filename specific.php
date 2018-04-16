@@ -1,17 +1,12 @@
 <?php
 require("vendor/autoload.php");
 use GuzzleHttp\Client;
-// Skapa en HTTP-client
 $client = new Client();
-// Anropa URL: http://unicorns.idioti.se/
-$res = $client->request('GET', 'http://unicorns.idioti.se/',
+$res = $client->request('GET', 'http://unicorns.idioti.se/' . $_GET["search"],
 ['headers' =>['Accept'=> 'application/json']]);
 
-//echo $res->getBody();
 $data = json_decode($res->getBody());
-//$myJson = json_encode($data);
 //print_r($data);
-//echo $data[0]->name;
 ?>
 
 <!DOCTYPE html>
@@ -33,18 +28,18 @@ $data = json_decode($res->getBody());
         <input type="submit" name="searchBtn" class="btn btn-success" value="Visa Enhörning!">
       </div>
     </form>
-    <form class="" action="index.php">
+    <form class="" action="index.php" method="post">
       <div class="form-group">
         <input type="submit" name="searchBtn" class="btn btn-primary" value="Visa alla enhörningar!">
       </div>
     </form>
-      <ul class="unicorn-list">
-        <?php
-          for($i = 0; $i <= sizeof($data)-5; $i++){
-            echo "<li><form action='specific.php'method='get'>" . $data[$i]->name .
-            "<button type = 'submit' name='search' class='btn-info' value='". $data[$i]->id ."'>Läs mer!</button></form><hr></li>";
-          }
-        ?>
-      </ul>
+    <div>
+      <?php
+        echo "<h2>". $data->name . "</h2>"
+          . "<i>" . $data->spottedWhen . "</i>"
+          . "<p>" . $data->description . "<p>"
+          . "<img  src=" . $data->image . ">";
+      ?>
+      </div>
   </body>
 </html>
