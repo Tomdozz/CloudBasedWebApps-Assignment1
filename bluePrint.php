@@ -10,17 +10,19 @@
   <body>
     <h1>Enhörningar</h1>
     <hr>
-    <form class="" action="specific.php" method="get">
+    <form class="main-form" action="specific.php" method="get">
       <div class="form-group">
         <h4>Id på enhörning<h5>
         <input type="text" name="search" class="form-control">
         <input type="submit" name="searchBtn" class="btn btn-success" value="Visa Enhörning!">
       </div>
     </form>
-    <form class="" action="index.php">
+    <form class="main-form" action="index.php">
       <div class="form-group">
         <input type="submit" name="searchBtn" class="btn btn-primary" value="Visa alla enhörningar!">
       </div>
     </form>
+    <hr>
+    <br>
   </body>
 </html>

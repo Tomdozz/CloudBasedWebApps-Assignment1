@@ -8,6 +8,7 @@ $res = $client->request('GET', 'http://unicorns.idioti.se/',
 ['headers' =>['Accept'=> 'application/json']]);
 $data = json_decode($res->getBody());
 $log->debug('Requested info about all unicorns');
+//print_r($data);
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,10 @@ $log->debug('Requested info about all unicorns');
   <body>
       <ul class="unicorn-list">
         <?php
-          for($i = 0; $i <= sizeof($data)-5; $i++){
+          for($i = 0; $i <= sizeof($data); $i++){
+            if ($data[$i]->name == "") {
+              break;
+            }
             echo "<li><form action='specific.php'method='get'>"
             . $data[$i]->name .
             "<button type = 'submit' name='search' class='btn-info'
