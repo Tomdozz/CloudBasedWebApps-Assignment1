@@ -1,0 +1,8 @@
+.unicorn-list button{
+  float: right;
+  margin-right: 5vw;
+}
+ul{
+  list-style-type: none;
+  padding: 0;
+}
