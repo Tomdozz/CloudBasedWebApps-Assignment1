@@ -2,18 +2,18 @@
 require("vendor/autoload.php");
 use GuzzleHttp\Client;
 require("log.php");
-require("bluePrint.php");
+
 $client = new Client();
 $res = $client->request('GET', 'http://unicorns.idioti.se/',
 ['headers' =>['Accept'=> 'application/json']]);
 $data = json_decode($res->getBody());
 $log->debug('Requested info about all unicorns');
 //print_r($data);
+
+require("bluePrint.php");
 ?>
 
-<!DOCTYPE html>
-<html>
-  <body>
+
       <ul class="unicorn-list">
         <?php
           for($i = 0; $i <= sizeof($data); $i++){

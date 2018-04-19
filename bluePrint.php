@@ -23,6 +23,3 @@
       </div>
     </form>
     <hr>
-    <br>
-  </body>
-</html>
